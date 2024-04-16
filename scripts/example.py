@@ -1,6 +1,7 @@
 from pathlib import Path
 import argparse
 from pointcloud_tools import PointCloudCreator, create_pcd_from_array, read_pcd, write_pcd
+import tqdm 
 
 def main(args):
     """Process RGB and depth images in the input directory, generate point clouds, and save them to the output directory."""
@@ -31,7 +32,7 @@ def main(args):
         convert_method = point_cloud_creator.convert_depth_to_point_array
 
     # Process each RGB image
-    for rgb_file in rgb_files:
+    for rgb_file in tqdm.tqdm(rgb_files):
         # Extract image name without extension
         image_name = rgb_file.stem
 
