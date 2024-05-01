@@ -8,6 +8,7 @@ def main(args):
 
     base_dir = Path(args.base_dir)
     output_dir = Path(args.output_dir)
+    oak_dir = Path(args.oak_dir)
 
     # Check if the input directories exist
     rgb_dir = base_dir / "rgb"
@@ -23,7 +24,7 @@ def main(args):
     rgb_files = sorted(rgb_dir.glob("*.png"))
 
     # Init a point cloud creator with the camera configuration
-    point_cloud_creator = PointCloudCreator(conf_file=base_dir / "oak-d-s2-poe_conf.json")
+    point_cloud_creator = PointCloudCreator(conf_file=oak_dir)
 
     # Choose method for point cloud generation
     if args.method == "open3d":
@@ -62,6 +63,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate point clouds from RGB and depth images.')
     parser.add_argument('--base_dir', type=str, default="data", help='Base directory containing RGB and depth images')
     parser.add_argument('--output_dir', type=str, default="data/pointclouds", help='Output directory for point clouds')
+    parser.add_argument('--oak_dir', type=str, default="data/oak-d-s2-poe_conf.json", help='path to config file')
     parser.add_argument('--method', choices=['open3d', 'array'], default='open3d',
                         help='Method for point cloud generation: open3d or array')
     args = parser.parse_args()
